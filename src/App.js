@@ -97,6 +97,7 @@ const App = () => {
     return provider;
   }
 
+
   const createGifAccount = async () => {
     try {
       const provider = getProvider();
@@ -163,7 +164,8 @@ const App = () => {
 					{/* We use index as the key instead, also, the src is now item.gifLink */}
           {gifList.map((item, index) => (
             <div className="gif-item" key={index}>
-              <img src={item.gifLink} />
+              <img src={item.gifLink}/>
+              <div className= "gif-owner"> {item.userAddress.toString}</div>
             </div>
           ))}
         </div>
@@ -171,6 +173,17 @@ const App = () => {
     )
   }
 }
+const renderConnectedButton = () => {
+  // If true, program account hasn't been initialized.
+      return (
+        <div>
+          <button className="cta-button btn-grad" onClick={createGifAccount}>
+            {walletAddress}
+          </button>
+        </div>
+      )
+    }
+
 
   useEffect(() => {
     const onLoad = async () => {
@@ -217,6 +230,7 @@ const App = () => {
         View your GIF collection in the metaverse ✨
       </p>
       
+      {walletAddress && renderConnectedButton()}
       {/* show the connect button only if we don't have a wallet address */}
       {!walletAddress && renderConnectButton()}
 
