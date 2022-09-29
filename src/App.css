@@ -104,6 +104,12 @@
   justify-self: center;
   align-self: center;
 }
+.gif-item .gif-owner {
+  color: white;
+  font-weight: bold;
+  font-size: 12px;
+  margin-top: 4px;
+}
 
 .gif-item img {
   width: 100%;
