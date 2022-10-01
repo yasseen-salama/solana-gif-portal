@@ -21,16 +21,33 @@
   padding: 30px;
 }
 
-.header {
-  margin: 0;
-  font-size: 50px;
+.nav-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 15px 5px 20px;
+}
+button.nav-bar {
+  display: flex;
+}
+
+span.icon {
+padding-right: 5px;
+}
+
+.title{
+  font-size: 40px;
   font-weight: bold;
   color: white;
 }
 
+
 .sub-text {
-  font-size: 25px;
+  font-size: 15px;
+  text-align: left;
   color: white;
+  padding-left: 70px;
 }
 
 .gradient-text {
@@ -46,7 +63,7 @@
   width: auto;
   padding-left: 40px;
   padding-right: 40px;
-  border-radius: 10px;
+  border-radius: 20px;
   cursor: pointer;
   font-size: 16px;
   font-weight: bold;
@@ -54,6 +71,12 @@
 }
 
 .connect-wallet-button {
+  background: -webkit-linear-gradient(left, #60c657, #35aee2);
+  background-size: 200% 200%;
+  animation: gradient-animation 4s ease infinite;
+}
+
+.wallet-address-button {
   background: -webkit-linear-gradient(left, #60c657, #35aee2);
   background-size: 200% 200%;
   animation: gradient-animation 4s ease infinite;
@@ -103,6 +126,12 @@
   position: relative;
   justify-self: center;
   align-self: center;
+}
+.gif-item .gif-owner {
+  color: white;
+  font-weight: bold;
+  font-size: 12px;
+  margin-top: 4px;
 }
 
 .gif-item img {
