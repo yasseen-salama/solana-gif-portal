@@ -2,6 +2,7 @@ import kp from './keypair.json'
 import React, { useEffect, useState } from 'react';
 import twitterLogo from './assets/twitter-logo.svg';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { Connection, PublicKey, clusterApiUrl} from '@solana/web3.js';
 import {
   Program, Provider, web3
@@ -12,9 +13,11 @@ const { SystemProgram, Keypair } = web3;
 
 const arr = Object.values(kp._keypair.secretKey)
 const secret = new Uint8Array(arr)
-const baseAccount = web3.Keypair.fromSecretKey(secret)
+let baseAccount = web3.Keypair.fromSecretKey(secret);
 
-const programID = new PublicKey('QGwSEkdoSWSHBRn5eA31miyfQ5wPXGi9L63pcX73QcK');
+// const baseAccount = web3.Keypair.fromSecretKey(secret)
+
+const programID = new PublicKey('F8NjHsqvBW3jCisV265DY69v1EyDYN4dKUof4FJsHZyU');
 
 // Set our network to devnet.
 const network = clusterApiUrl('devnet');
@@ -97,6 +100,10 @@ const App = () => {
     return provider;
   }
 
+  const shortenAddress = (address) => {
+    return address.substring(0, 4) + '..' + address.substr(address.length - 4);
+  } 
+
 
   const createGifAccount = async () => {
     try {
@@ -132,6 +139,7 @@ const App = () => {
   const renderConnectedContainer = () => {
     // If true, program account hasn't been initialized.
       if (gifList === null) {
+        console.log(gifList);
         return (
           <div className="connected-container">
             <button className="cta-button submit-gif-button" onClick={createGifAccount}>
@@ -166,6 +174,7 @@ const App = () => {
             <div className="gif-item" key={index}>
               <img src={item.gifLink}/>
               <div className= "gif-owner"> {item.userAddress.toString}</div>
+              <div> {item.likes}</div>
             </div>
           ))}
         </div>
@@ -176,11 +185,12 @@ const App = () => {
 const renderConnectedButton = () => {
   // If true, program account hasn't been initialized.
       return (
-        <div>
-          <button className="cta-button btn-grad" onClick={createGifAccount}>
-            {walletAddress}
+          <button className="cta-button wallet-address-button" onClick={createGifAccount}>
+            <span className="icon">
+              <img src="https://3632261023-files.gitbook.io/~/files/v0/b/gitbook-legacy-files/o/spaces%2F-MVOiF6Zqit57q_hxJYp%2Favatar-1615495356537.png?generation=1615495356841399&alt=media" alt="Phantom_logo" width="20" height="20"></img>
+            </span>
+            {shortenAddress(walletAddress)}
           </button>
-        </div>
       )
     }
 
@@ -223,14 +233,18 @@ const renderConnectedButton = () => {
 
   return (
   <div className="App">
+  
   <div className={walletAddress ? 'authed-container' : 'container'}>
-    <div className="header-container">
-      <p className="header">🚗  Dashboard GIF Portal</p>
+    <div className='nav-bar'>
+        <div className="title">🖼️ GIF Portal</div>
+        {walletAddress && renderConnectedButton()} 
+    </div>
+      
+
       <p className="sub-text">
         View your GIF collection in the metaverse ✨
       </p>
-      
-      {walletAddress && renderConnectedButton()}
+    
       {/* show the connect button only if we don't have a wallet address */}
       {!walletAddress && renderConnectButton()}
 
@@ -244,10 +258,9 @@ const renderConnectedButton = () => {
         href={TWITTER_LINK}
         target="_blank"
         rel="noreferrer"
-      >{`built on @${TWITTER_HANDLE}`}</a>
+      >{`built by @${TWITTER_HANDLE}`}</a>
     </div>
   </div>
-</div>
 );
 };
 
