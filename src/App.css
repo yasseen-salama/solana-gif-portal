@@ -107,7 +107,7 @@ padding-right: 5px;
 
 .footer-text {
   color: white;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: bold;
 }
 
@@ -157,4 +157,26 @@ padding-right: 5px;
 
 .connected-container button {
   height: 50px;
+}
+
+.like-heart .stage {
+  position: static;
+  top: 0%;
+  left: 0%;
+  transform: translate(0%, 0%);
+  margin-right: -17px;
+
+}
+.gif-likes {
+  display: flex;
+  height: 100px;
+  justify-content: center;
+  align-items: center;
+}
+.gif-likes .like-count {
+  color: white;
+  font-size: 25px;
+  font-weight: bold;
+  vertical-align: middle;
+
 }

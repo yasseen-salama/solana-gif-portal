@@ -1,12 +1,11 @@
 import kp from './keypair.json'
 import React, { useEffect, useState } from 'react';
+import TwitterHeart from 'twitter-heart';
 import twitterLogo from './assets/twitter-logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Connection, PublicKey, clusterApiUrl} from '@solana/web3.js';
-import {
-  Program, Provider, web3
-} from '@project-serum/anchor';
+import {Connection, PublicKey, clusterApiUrl} from '@solana/web3.js';
+import {Program, Provider, web3} from '@project-serum/anchor';
 
 // SystemProgram is a reference to the Solana runtime!
 const { SystemProgram, Keypair } = web3;
@@ -37,6 +36,7 @@ const App = () => {
   const [walletAddress, setWalletAddress] = useState(null);
   const [inputValue, setInputValue] = useState('');
   const [gifList, setGifList] = useState([]);
+  const [isLiked] = useState('false');
 
   const checkIfWalletIsConnected = async () => {
     try {
@@ -136,6 +136,12 @@ const App = () => {
     </button>
   );
 
+  const heartClicked = (index) => {
+    gifList[index].likes +=1;
+    let newGifList = JSON.parse(JSON.stringify(gifList));
+    setGifList(newGifList);
+  };
+
   const renderConnectedContainer = () => {
     // If true, program account hasn't been initialized.
       if (gifList === null) {
@@ -160,7 +166,7 @@ const App = () => {
         >
           <input
             type="text"
-            placeholder="Enter gif link!"
+            placeholder="Enter GIF Link!"
             value={inputValue}
             onChange={onInputChange}
           />
@@ -174,7 +180,12 @@ const App = () => {
             <div className="gif-item" key={index}>
               <img src={item.gifLink}/>
               <div className= "gif-owner"> {item.userAddress.toString}</div>
-              <div> {item.likes}</div>
+              <div className="gif-likes">
+                <div className="like-heart"><TwitterHeart isLiked={item.isLiked} onHeartClick={()=>heartClicked(index)}></TwitterHeart></div>
+                <div className='like-count'> {item.likes}</div>
+              </div>
+              
+              
             </div>
           ))}
         </div>
@@ -193,7 +204,7 @@ const renderConnectedButton = () => {
           </button>
       )
     }
-
+  
 
   useEffect(() => {
     const onLoad = async () => {
@@ -216,8 +227,10 @@ const renderConnectedButton = () => {
       const account = await program.account.baseAccount.fetch(baseAccount.publicKey);
       
       console.log("Got the account", account)
+      account.gifList.forEach(function (gif) {
+        gif.isLiked = false; 
+      });
       setGifList(account.gifList)
-  
     } catch (error) {
       console.log("Error in getGifList: ", error)
       setGifList(null);
@@ -236,7 +249,7 @@ const renderConnectedButton = () => {
   
   <div className={walletAddress ? 'authed-container' : 'container'}>
     <div className='nav-bar'>
-        <div className="title">🖼️ GIF Portal</div>
+        <div className="title">🖼️ GIF Portal on the Solana Blockchain</div>
         {walletAddress && renderConnectedButton()} 
     </div>
       
