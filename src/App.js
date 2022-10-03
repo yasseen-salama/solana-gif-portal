@@ -137,10 +137,38 @@ const App = () => {
   );
 
   const heartClicked = (index) => {
-    gifList[index].likes +=1;
+    console.log(gifList[index].isLiked);
+    if (gifList[index].isLiked) {
+      gifList[index].likes -=1;
+      gifList[index].isLiked = false;
+    }
+    else {
+      gifList[index].likes +=1;
+      gifList[index].isLiked = true;
+      likeGif(gifList[index].gifLink);
+    }
     let newGifList = JSON.parse(JSON.stringify(gifList));
     setGifList(newGifList);
   };
+
+  const likeGif = async (gifLink) => {
+    try {
+      const provider = getProvider()
+      const program = await getProgram(); 
+  
+      await program.rpc.likeGif(gifLink, {
+        accounts: {
+          baseAccount: baseAccount.publicKey,
+          user: provider.wallet.publicKey,
+        },
+      });
+      console.log("GIF successfully liked", gifLink);
+  
+    } catch (error) {
+      console.log("Error liking GIF:", error)
+    }
+  };
+  
 
   const renderConnectedContainer = () => {
     // If true, program account hasn't been initialized.
@@ -227,6 +255,7 @@ const renderConnectedButton = () => {
       const account = await program.account.baseAccount.fetch(baseAccount.publicKey);
       
       console.log("Got the account", account)
+      //TODO: change logic, this function gets called when a new GIF is added and threfore will set likes to 0  
       account.gifList.forEach(function (gif) {
         gif.isLiked = false; 
       });
