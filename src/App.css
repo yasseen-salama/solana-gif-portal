@@ -127,12 +127,6 @@ padding-right: 5px;
   justify-self: center;
   align-self: center;
 }
-.gif-item .gif-owner {
-  color: white;
-  font-weight: bold;
-  font-size: 12px;
-  margin-top: 4px;
-}
 
 .gif-item img {
   width: 100%;
@@ -169,7 +163,7 @@ padding-right: 5px;
 }
 .gif-likes {
   display: flex;
-  height: 100px;
+  height: 75px;
   justify-content: center;
   align-items: center;
 }
@@ -178,5 +172,17 @@ padding-right: 5px;
   font-size: 25px;
   font-weight: bold;
   vertical-align: middle;
+}
+.gif-likes .gif-owner {
+  color: #6B7280;
+  font-weight: bold;
+  font-size: 14px;
+  margin-left: auto;
+  margin-right: 15px;
+  display: inline-block;
+  opacity: 0.5;
+}
 
+.gif-likes .gif-owner ul {
+  margin-top: 10px;
 }
