@@ -16,7 +16,7 @@ let baseAccount = web3.Keypair.fromSecretKey(secret);
 
 // const baseAccount = web3.Keypair.fromSecretKey(secret)
 
-const programID = new PublicKey('F8NjHsqvBW3jCisV265DY69v1EyDYN4dKUof4FJsHZyU');
+const programID = new PublicKey('7iWVA1uoKb5YtR9eQUEgAsuBoKt3KcPMS6tFLDftdsZ8');
 
 // Set our network to devnet.
 const network = clusterApiUrl('devnet');
@@ -207,10 +207,14 @@ const App = () => {
           {gifList.map((item, index) => (
             <div className="gif-item" key={index}>
               <img src={item.gifLink}/>
-              <div className= "gif-owner"> {item.userAddress.toString}</div>
               <div className="gif-likes">
                 <div className="like-heart"><TwitterHeart isLiked={item.isLiked} onHeartClick={()=>heartClicked(index)}></TwitterHeart></div>
-                <div className='like-count'> {item.likes}</div>
+                <div className="like-count"> {item.likes}</div>
+                <div className="gif-owner">
+                  <ul>
+                  <li> {shortenAddress(item.userAddress.toString())}</li>
+                  </ul>
+                </div>
               </div>
               
               
@@ -224,7 +228,7 @@ const App = () => {
 const renderConnectedButton = () => {
   // If true, program account hasn't been initialized.
       return (
-          <button className="cta-button wallet-address-button" onClick={createGifAccount}>
+          <button className="cta-button wallet-address-button">
             <span className="icon">
               <img src="https://3632261023-files.gitbook.io/~/files/v0/b/gitbook-legacy-files/o/spaces%2F-MVOiF6Zqit57q_hxJYp%2Favatar-1615495356537.png?generation=1615495356841399&alt=media" alt="Phantom_logo" width="20" height="20"></img>
             </span>
