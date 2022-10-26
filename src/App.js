@@ -14,9 +14,7 @@ const arr = Object.values(kp._keypair.secretKey)
 const secret = new Uint8Array(arr)
 let baseAccount = web3.Keypair.fromSecretKey(secret);
 
-// const baseAccount = web3.Keypair.fromSecretKey(secret)
-
-const programID = new PublicKey('7iWVA1uoKb5YtR9eQUEgAsuBoKt3KcPMS6tFLDftdsZ8');
+const programID = new PublicKey('CWtpJ9ETHrbqMC4HYXcd782BNoQsibHRqdeKsukB3wzd');
 
 // Set our network to devnet.
 const network = clusterApiUrl('devnet');
@@ -249,6 +247,8 @@ const renderConnectedButton = () => {
   const getProgram = async () => {
     // Get metadata about your solana program
     const idl = await Program.fetchIdl(programID, getProvider());
+    console.log(idl);
+
     // Create a program that you can call
     return new Program(idl, programID, getProvider());
   };
