@@ -158,7 +158,7 @@ padding-right: 5px;
   top: 0%;
   left: 0%;
   transform: translate(0%, 0%);
-  margin-right: -17px;
+  /* margin-right: -17px; */
 
 }
 .gif-likes {
@@ -172,6 +172,7 @@ padding-right: 5px;
   font-size: 25px;
   font-weight: bold;
   vertical-align: middle;
+  cursor: pointer; 
 }
 .gif-likes .gif-owner {
   color: #6B7280;
@@ -186,3 +187,15 @@ padding-right: 5px;
 .gif-likes .gif-owner ul {
   margin-top: 10px;
 }
+
+/* .likers-modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
