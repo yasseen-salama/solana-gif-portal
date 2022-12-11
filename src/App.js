@@ -303,7 +303,6 @@ const renderConnectedButton = () => {
       <p className="sub-text">
         View your GIF collection in the metaverse ✨
       </p>
-  );
       {/* show the connect button only if we don't have a wallet address */}
       {!walletAddress && renderConnectButton()}
 
@@ -320,7 +319,7 @@ const renderConnectedButton = () => {
       >{`built by @${TWITTER_HANDLE}`}</a>
     </div>
   </div>
-);
+  );
 };
 
 export default App;
