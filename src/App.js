@@ -1,4 +1,5 @@
 import kp from './keypair.json'
+import LikersModal from './Components/LikersModal'
 import React, { useEffect, useState } from 'react';
 import TwitterHeart from 'twitter-heart';
 import twitterLogo from './assets/twitter-logo.svg';
@@ -19,6 +20,8 @@ const programID = new PublicKey('CWtpJ9ETHrbqMC4HYXcd782BNoQsibHRqdeKsukB3wzd');
 // Set our network to devnet.
 const network = clusterApiUrl('devnet');
 
+
+
 // Controls how we want to acknowledge when a transaction is "done".
 const opts = {
   preflightCommitment: "processed"
@@ -34,7 +37,16 @@ const App = () => {
   const [walletAddress, setWalletAddress] = useState(null);
   const [inputValue, setInputValue] = useState('');
   const [gifList, setGifList] = useState([]);
-  const [isLiked] = useState('false');
+  
+  // Likers Modal 
+  const [modalState, setModalState] = useState(false);
+  const [likers, setLikers] = useState([]);
+  const openModal = () => { setModalState(!modalState) };
+  const closeModal = () => { setModalState(!modalState) };
+
+//   React.useEffect(() => {setIsOpen(true);
+// }, [props.modalOpen])
+
 
   const checkIfWalletIsConnected = async () => {
     try {
@@ -101,6 +113,7 @@ const App = () => {
   const shortenAddress = (address) => {
     return address.substring(0, 4) + '..' + address.substr(address.length - 4);
   } 
+
 
 
   const createGifAccount = async () => {
@@ -207,18 +220,18 @@ const App = () => {
               <img src={item.gifLink}/>
               <div className="gif-likes">
                 <div className="like-heart"><TwitterHeart isLiked={item.isLiked} onHeartClick={()=>heartClicked(index)}></TwitterHeart></div>
-                <div className="like-count"> {item.likes}</div>
+                <div onClick={openModal} className="like-count"> {item.likes}</div>
                 <div className="gif-owner">
                   <ul>
                   <li> {shortenAddress(item.userAddress.toString())}</li>
                   </ul>
                 </div>
               </div>
-              
-              
+              <LikersModal modalState={modalState} onClose={closeModal} likersAddress={item.likers} />
             </div>
           ))}
         </div>
+        
       </div>
     )
   }
@@ -290,7 +303,7 @@ const renderConnectedButton = () => {
       <p className="sub-text">
         View your GIF collection in the metaverse ✨
       </p>
-    
+  );
       {/* show the connect button only if we don't have a wallet address */}
       {!walletAddress && renderConnectButton()}
 

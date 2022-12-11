@@ -1,4 +1,4 @@
-# buildspace Solana GIF Portal Project
+# Solana GIF Portal
 
 ### **Welcome 👋**
 
