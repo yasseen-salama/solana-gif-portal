@@ -291,20 +291,17 @@ const renderConnectedButton = () => {
   }, [walletAddress]);
 
   return (
-  <div className="app">
-  
-  <div className={walletAddress ? 'authed-container' : 'container'}>
-    <div className='nav-bar'>
+  <div className="app-container">
+    <div className={walletAddress ? 'authed-container' : 'container'}>
+      <div className='nav-bar'>
         <div className="title">🖼️ GIF Portal on the Solana Blockchain</div>
         {walletAddress && renderConnectedButton()} 
-    </div>
-      
-
-      <p className="sub-text">
-        View your GIF collection in the metaverse ✨
-      </p>
-      {/* show the connect button only if we don't have a wallet address */}
-      {!walletAddress && renderConnectButton()}
+        </div>
+        <p className="sub-text">
+          View your GIF collection in the metaverse ✨
+          </p>
+          {/* show the connect button only if we don't have a wallet address */}
+          {!walletAddress && renderConnectButton()}
 
       {/* show the GIFS if we have a wallet address */}
       {walletAddress && renderConnectedContainer()}
