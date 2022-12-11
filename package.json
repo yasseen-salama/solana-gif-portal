@@ -1,5 +1,5 @@
 {
-  "name": "solana-gif-portal-buildspace",
+  "name": "solana-gif-portal",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
