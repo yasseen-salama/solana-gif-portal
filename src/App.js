@@ -40,7 +40,7 @@ const App = () => {
   
   // Likers Modal 
   const [modalState, setModalState] = useState(false);
-  const likers = (['User 1', 'User 2', 'User 3']);
+  const [likers, setLikers] = useState([]);
   const openModal = () => { setModalState(!modalState) };
   const closeModal = () => { setModalState(!modalState) };
 
@@ -113,6 +113,7 @@ const App = () => {
   const shortenAddress = (address) => {
     return address.substring(0, 4) + '..' + address.substr(address.length - 4);
   } 
+
 
 
   const createGifAccount = async () => {
@@ -226,10 +227,11 @@ const App = () => {
                   </ul>
                 </div>
               </div>
+              <LikersModal modalState={modalState} onClose={closeModal} likersAddress={item.likers} />
             </div>
           ))}
         </div>
-        <LikersModal modalState={modalState} onClose={closeModal} strings={likers} />
+        
       </div>
     )
   }

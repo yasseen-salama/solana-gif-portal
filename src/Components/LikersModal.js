@@ -1,10 +1,12 @@
 import React from 'react';
 import '../Components/LikersModal.css'
 
-const LikersModal = ({ modalState, onClose, strings }) => {
+const LikersModal = ({ modalState, onClose, likersAddress }) => {
   if (!modalState) {
     return null;
   }
+  console.log(likersAddress);
+
 
   return (
     <div className="modal-container">
@@ -12,7 +14,7 @@ const LikersModal = ({ modalState, onClose, strings }) => {
       <button onClick={onClose}>Close</button>
         <h2>Likers</h2>
         <ul>
-          {strings.map((string, index) => <li key={index}>{string}</li>)}
+          {likersAddress.map((key, index) => <li key={index}>{key.toString()}</li>)}
         </ul>
       </div>
     </div>
