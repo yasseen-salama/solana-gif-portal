@@ -291,7 +291,7 @@ const renderConnectedButton = () => {
   }, [walletAddress]);
 
   return (
-  <div className="App">
+  <div className="app">
   
   <div className={walletAddress ? 'authed-container' : 'container'}>
     <div className='nav-bar'>
