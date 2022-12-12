@@ -291,7 +291,7 @@ const renderConnectedButton = () => {
   }, [walletAddress]);
 
   return (
-  <div className="app-container">
+  <div className="app">
     <div className={walletAddress ? 'authed-container' : 'container'}>
       <div className='nav-bar'>
         <div className="title">🖼️ GIF Portal on the Solana Blockchain</div>
