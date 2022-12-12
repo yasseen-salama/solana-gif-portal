@@ -152,9 +152,6 @@ padding-right: 5px;
   margin: 50px auto;
 }
 
-.connected-container button {
-  height: 50px;
-}
 
 .like-heart .stage {
   position: static;
@@ -191,14 +188,3 @@ padding-right: 5px;
   margin-top: 10px;
 }
 
-/* .likers-modal {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 100;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-} */

@@ -23,12 +23,22 @@
   
   .content {
     position: relative;
+    font-weight: bold;
+    font-size: 12px;
     background-color: white;
     padding: 30px;
-    width: 600px;
-    height: 400px;
-    border-radius: 5px;
+    border-radius: 15px;
     animation: slideIn 0.3s ease-in;
+  }
+
+  h1.p-2{
+    font-size: 16px; 
+    color: #5A5A5A;
+  }
+
+  svg {
+    height: 13px;
+    fill: darkgreen;
   }
   
   @keyframes
