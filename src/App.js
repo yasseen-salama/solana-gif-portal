@@ -15,6 +15,7 @@ const arr = Object.values(kp._keypair.secretKey);
 const secret = new Uint8Array(arr);
 let baseAccount = web3.Keypair.fromSecretKey(secret);
 
+
 const programID = new PublicKey("CWtpJ9ETHrbqMC4HYXcd782BNoQsibHRqdeKsukB3wzd");
 
 // Set our network to devnet.
@@ -150,10 +151,11 @@ const App = () => {
   );
 
   const heartClicked = (index) => {
-    console.log(gifList[index].isLiked);
     if (gifList[index].isLiked) {
       gifList[index].likes -= 1;
       gifList[index].isLiked = false;
+      unLikeGif(gifList[index].gifLink);
+
     } else {
       gifList[index].likes += 1;
       gifList[index].isLiked = true;
@@ -176,6 +178,22 @@ const App = () => {
       });
     } catch (error) {
       console.log("Error liking GIF:", error);
+    }
+  };
+
+  const unLikeGif = async (gifLink) => {
+    try {
+      const provider = getProvider();
+      const program = await getProgram();
+
+      await program.rpc.unlikeGif(gifLink, {
+        accounts: {
+          baseAccount: baseAccount.publicKey,
+          user: provider.wallet.publicKey,
+        },
+      });
+    } catch (error) {
+      console.log("Error unliking GIF:", error);
     }
   };
 
@@ -293,6 +311,11 @@ const App = () => {
       //TODO: change logic, this function gets called when a new GIF is added and threfore will set likes to 0
       account.gifList.forEach(function (gif) {
         gif.isLiked = false;
+        gif.likers.forEach(function (address) {
+          if(address.toString() === walletAddress){
+            gif.isLiked = true;
+          }
+        });
       });
       setGifList(account.gifList);
     } catch (error) {
